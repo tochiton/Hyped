@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+	</head>
+
+	<style>
+		.navbtn {
+			color: #FFFFF0
+		}
+
+		.teamlist {
+			padding-top: 20px
+			padding-bottom: 20px
+		}
+
+		#ChooseMVPTitle {
+			padding: 10px
+		}
+
+		.row {
+			padding-bottom: 20px
+		}
+
+		.list-group-item:hover {
+			background-color: green
+		}
+
+		.scrollable-menu {
+			max-height: 450px;
+			overflow-x: hidden;
+		}
+
+		#submit {
+			margin: auto
+		}
+
+		#selected-item {
+			font-weight: bold;
+			font-size: 18px;
+		}
+
+		.navitemname {
+			display: inline-block;
+			width: 100%
+		}
+
+	</style>
+
+	<body>
+		<div class="collapse" id="CollapsingNavbar">
+  			<div class="bg-inverse p-a-1">
+				<ul class="nav">
+			  		<li class="nav-item">
+						<button class="navbar-toggler navbtn" id="mvp" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">MVP Vote</button>
+				    </li>
+					<li class="nav-item">
+						<button class="navbar-toggler navbtn" id="song" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Fav Song</button>
+					</li>
+					<li class="nav-item">
+						<button class="navbar-toggler navbtn" id="raffle" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Raffle</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="navitemname">
+			<nav class="navbar navbar-light bg-faded nav-inline">
+				<ul class="nav nav-inline">
+					<li class="nav-item">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#CollapsingNavbar"> &#9776; </button>
+					</li>
+					<li class="nav-item">
+						<p id="selected-item">MVP Vote</p>
+					</li>
+				</ul>
+			</nav>
+		</div>
+
+		<div class="container" id="main-content">
+			<div class="teamlist">
+			<h4 align="center" id="ChooseMVPTitle">Choose the MVP Player</h4>
+			<div class="container">
+				<div class="col-xs-6 col-sm-6">
+					<h4 align="center">Oregon Ducks
+						<img src="./img/duck.png" alt="Mountain View" style="width:50px;height:auto;">
+					</h4>
+				</div>
+				<div class="col-xs-6 col-sm-6">
+					<h4 align="center">California Golden Bears
+						<img src="./img/cal.png" alt="Mountain View" style="width:50px;height:auto;">
+					</h4>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-6 col-sm-6">
+					<ul class="list-group scrollable-menu" id="home-team"></ul>
+				</div>
+				<div class="col-xs-6 col-sm-6">
+					<ul class="list-group scrollable-menu" id="away-team"></ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container" align="center">
+			<button class="btn btn-primary btn-block" id="submit" type="button">Submit MVP Pick</button>
+		</div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+		<script>
+			$('#mvp').click(function(){
+				$.get('/list', function(data){
+					$('#home-team').append(data.homeTeam);
+					$('#away-team').append(data.awayTeam);
+				});
+			});
+
+			$( ".navbtn" ).click(function() {
+				var currentName = $(this).text();
+				$("#selected-item").text(currentName);
+			});
+		</script>
+	</body>
+</html>
