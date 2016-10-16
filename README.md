@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [What is Hype?](##what-is-hype)
+- [What is Hype?](#what-is-hype)
 - [How can I get Hype?](#how-can-i-get-hype)
 - [Inspiration](#inspiration)
 - [What it does](#what-it-does)
