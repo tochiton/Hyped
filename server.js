@@ -157,16 +157,16 @@
                //     console.log(objectRows);
                     objectUser = objectRows;
                     console.log(objectRows);
+                    res.type('json');
+                    res.json(objectUser);
                 }
             );
         };
 
         functionUser();
-        res.set({
-            'Content-Type': 'text/json'
-        });
-        // res.json(objectUser);
-        //res.end();
+        //var bb = JSON.stringify(objectUser);
+        //res.json(objectUser);
+
         //res.json(objectUser);
 
     });
