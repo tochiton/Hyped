@@ -9,7 +9,8 @@ Awesome! Glad you want to try our product. Right now Hype! is a responsive web a
 <p align="center">
   <img src="iOS_1.png" width="300"/>
   <img src="Android_1.png" width="299"/>
-  <img src="chart.png" width="600"/>
+  <p align="center"><b>Hype! being run on a browser</b></p>
+  <img src="chart.png" width="1000"/>
 </p>
 
 ###Inspiration
