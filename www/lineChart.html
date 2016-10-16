@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+</head>
+<body>
+<div id="container" style="height: 75vh;width:100%"></div>
+<div>
+    <h1 id="curleader" align="center"></h1>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+<script>
+    $(function () {
+        var currentLeader = "";
+        var currentLeaderVotes = 0;
+
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container'
+            },
+            title: {
+                text: 'MVP Live Vote Results',
+                x: -20 //center
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Votes'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: []
+        });
+        window.map = {};
+        window.mapCounter = {};
+
+        var tempVotes = 0;
+        var tempLeader = "";
+        // Pretend to do dynamic adding of points
+        setInterval(function () {
+            var curTime = moment(new Date(), "YYYY-MM-DD").valueOf();
+            $.ajax({
+                url: "/getvotes", success: function (result) {
+                    for (var i = 0; i < result.length; ++i) {
+                        if (result[i].count > currentLeaderVotes) {
+                            tempVotes = result[i].count;
+                            tempLeader = result[i].name;
+                        }
+                    }
+
+                    currentLeader = tempLeader;
+                    currentLeaderVotes = tempVotes;
+
+                    $('#curleader').text('Current leader is ' + currentLeader + ' with ' + currentLeaderVotes + ' votes');
+
+                    for (var i = 0; i < result.length; ++i) {
+                        if (result[i].name in map == false) {
+                            chart.addSeries({
+                                name: result[i].name,
+                                data: []
+                            }, false);
+                            map[result[i].name] = true;
+                            mapCounter[result[i].name] = i;
+                        } else {
+                            if(chart.series[mapCounter[result[i].name]].data.length > 5)
+                                chart.series[mapCounter[result[i].name]].addPoint([curTime, result[i].count], true, true);
+                            else
+                                chart.series[mapCounter[result[i].name]].addPoint([curTime, result[i].count], true, false);
+                        }
+                    }
+                }
+            });
+        }, 1000);
+    })
+    ;
+</script>
+</body>
+</html>
