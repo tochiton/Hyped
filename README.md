@@ -1,8 +1,14 @@
 # Hype!
 
+###What is Hype?
+Well I'm hyped already. Aren't you? Hype is a multiplatform responsive web app that its main goal is to create excitement and engagement toward an audience of sport enthusiasms. Allows them to get involved in small polls and raffles in the live game they are in now. Users will have access to the poll results as soon as they vote represented by material design charts.
+
+###How can I get Hype?
+Awesome! Glad you want to try our product. Right now Hype! is a responsive web app so it's available through any browser or your phone browser. Don't worry. It's a responsive design so it will look as good as a native app. We are however are developing hype for Android and iOS natively as well.
+
 <p align="center">
   <img src="iOS_1.png" width="300"/>
-  <img src="Android_1.png" width="300"/>
+  <img src="Android_1.png" width="299"/>
   <img src="chart.png" width="600"/>
 </p>
 
