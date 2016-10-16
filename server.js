@@ -53,7 +53,6 @@
 
         database.run(`
             CREATE TABLE IF NOT EXISTS votes(
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name TEXT,
                 votes INTEGER
             );
@@ -73,6 +72,111 @@
 
     /************************************************************************/
     /************************************************************************/
+
+
+    app.post('/votes',function(){
+      if(!req.session.user){
+          res.redirect('/login.html');
+          return;
+      }
+      else{
+        database.all("SELECT * FROM votes WHERE votes.name = :name;",
+            {
+                ':name': req.body.name
+            },
+            function (objectError, objectRows) {
+                if (objectError !== null) {
+                    functionError(String(objectError));
+                }
+                else {
+                    if (objectRows.length === 0) {
+                        var i = 1;
+                        functionInsert(i);
+                    }
+                    else {
+                        //res.sendFile(__dirname + '/www/mvp.html');
+                        functionIncrement();
+                    }
+                }
+            }
+          );
+
+          var functionIncrement = function(){
+            database.all("SELECT * FROM votes WHERE votes.name = :name;",
+                {
+                    ':name': req.body.name
+                },
+                function (objectError, objectRows) {
+                    if (objectError !== null) {
+                        functionError(String(objectError));
+                    }
+                    else {
+                        if (objectRows.length !== 0) {
+                            var prev = objectRows.count;
+                        }
+                    }
+                }
+              );
+
+
+              database.all("SELECT * FROM votes WHERE votes.name = :name;",
+                  {
+                      ':name': req.body.name
+                  },
+                  function (objectError, objectRows) {
+                      if (objectError !== null) {
+                          functionError(String(objectError));
+                      }
+                      else {
+                          if (objectRows.length !== 0) {
+                              objectRows.count
+                          }
+                      }
+                  }
+                );
+
+
+
+              console.log(prev);
+
+          }
+
+            var functionInsert = function (i) {
+                database.run(`
+                INSERT INTO votes (name, count)
+                VALUES (:name, :count);
+            `, {
+                    ':name': req.body.username,
+                    ':count': i,
+                }, function (objectError) {
+                    if (objectError !== null) {
+                        functionError(String(objectError));
+                        return;
+                    }
+                    //console.log(this);
+                    req.session.user = this.lastID;
+                    functionSuccess();
+                });
+            };
+
+
+            var functionError = function (strError) {
+                res.status(200);
+                res.set({
+                    'Content-Type': 'text/plain'
+                });
+                res.write(strError);
+                res.end();
+            };
+
+            var functionSuccess = function () {
+                res.sendFile(__dirname + '/www/mvp.html');
+            };
+
+
+        )
+      }
+    });
 
     app.post('/signup.html', function(req, res) {
 
