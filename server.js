@@ -133,6 +133,45 @@
 
 
     });
+    //*********************************************************************
+    //*********************************************************************
+
+    app.get('/getvotes', function(req, res) {
+        //check for session and read info from the database
+
+        /*if(!req.session.user){
+            res.redirect('/login.html');
+            return;
+        }*/
+        var objectUser = null;
+
+        var functionUser = function() {
+            // get user info from db, store this user in objectUser
+            // call functionFile on success
+
+            database.all("SELECT name, count FROM votes",
+                {},
+                function (objectError, objectRows) {
+                    // check whether there was an error and handle it if necessary
+                    // is objrectrows.length !== 1? if so, this is an error that needs to be handled
+               //     console.log(objectRows);
+                    objectUser = objectRows;
+                    console.log(objectRows);
+                }
+            );
+        };
+
+        functionUser();
+        res.set({
+            'Content-Type': 'text/json'
+        });
+        // res.json(objectUser);
+        //res.end();
+        //res.json(objectUser);
+
+    });
+
+
     //***********************************************************************
     //***********************************************************************
 
