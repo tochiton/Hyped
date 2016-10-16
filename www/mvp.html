@@ -7,6 +7,7 @@
 	</head>
 
 	<style>
+
 		.navbtn {
 			color: #FFFFF0
 		}
@@ -25,8 +26,7 @@
 		}
 
 		.scrollable-menu {
-			max-height: 450px;
-			overflow-x: hidden;
+			overflow-x: hidden
 		}
 
 		#submit {
@@ -43,11 +43,19 @@
 			width: 100%
 		}
 
+		#home-team{
+
+		}
+
+		#away-team{
+
+		}
+
 	</style>
 
 	<body>
-		<div>
-		<div class="collapse" id="CollapsingNavbar">
+		<div style="width:100vw; height:100vh">
+			<div class="collapse" id="CollapsingNavbar">
   			<div class="bg-inverse p-a-1">
 				<ul class="nav">
 			  		<li class="nav-item">
@@ -60,8 +68,8 @@
 						<button class="navbar-toggler navbtn" id="raffle" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Raffle</button>
 					</li>
 				</ul>
+				</div>
 			</div>
-		</div>
 
 		<div class="navitemname">
 			<nav class="navbar navbar-light bg-faded nav-inline">
@@ -76,18 +84,19 @@
 			</nav>
 		</div>
 
-		<div class="container" id="main-content">
+		<div class="container" id="main-content" style="margin:1px; padding:1px;">
+			<div class="container" id="team-names">
 			<div class="teamlist">
-			<h4 align="center" id="ChooseMVPTitle">Choose the MVP Player</h4>
-			<div class="container">
+				<h4 align="center" id="ChooseMVPTitle">Choose the MVP Player</h4>
+				<div class="container">
 				<div class="col-xs-6 col-sm-6">
-					<h4 align="center">Oregon Ducks</h4>
+					<h6 align="center">Oregon Ducks</h6>
 				</div>
-				<div class="col-xs-6 col-sm-6">
-					<h4 align="center">California Golden Bears</h4>
+					<div class="col-xs-6 col-sm-6">
+						<h6 align="center">California Golden Bears</h6>
+					</div>
 				</div>
 			</div>
-		</div>
 
 		<div class="container" style="padding-bottom:5%">
 			<div class="col-xs-6 col-sm-6">
@@ -101,6 +110,7 @@
 			</div>
 			</div>
 		</div>
+	</div>
 
 		<div class="container">
 			<div class="row">
@@ -113,10 +123,11 @@
 			</div>
 		</div>
 
-		<div class="container" align="center" style="padding-bottom:5%">
+		<div class="container" id="btnsubmit" align="center" style="padding-bottom:5%">
 			<button class="btn btn-primary btn-block" id="submit" type="button">Submit MVP Pick</button>
 		</div>
 	</div>
+</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
@@ -125,11 +136,19 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 		<script>
+		$(function(){
 			var homeTeamSelection;
 			var awayTeamSelection;
+			var screenHeight = screen.height;
+			var navItems = $('.navitemname').height();
+			var teamNameHeight = $('#team-names').height();
+			var submitHeight = $('#btnsubmit').height();
+			var teamListHeight = screenHeight - navItems - teamNameHeight - submitHeight - 45;
 
 			$('#mvp').click(function(){
 				$.get('/list', function(data){
+					$('.scrollable-menu').css({"max-height": teamListHeight});
+
 					$('#home-team').append(data.homeTeam);
 					$('#away-team').append(data.awayTeam);
 
@@ -152,10 +171,15 @@
 				});
 			});
 
+			$('#submit').on('click', function(){
+
+			});
+
 			$( ".navbtn" ).click(function() {
 				var currentName = $(this).text();
 				$("#selected-item").text(currentName);
 			});
+	});
 		</script>
 	</body>
 </html>
