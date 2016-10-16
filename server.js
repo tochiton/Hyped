@@ -261,11 +261,18 @@
        };
 
        var functionSuccess = function () {
+           res.redirect('/lineChart.html');
           res.end();
        };
 
        functionCheck();
     });
+
+ /*   app.get('/lineChart.html', function (req, res) {
+
+    });*/
+
+
 
     /************************************************************************/
     /************************************************************************/
@@ -704,7 +711,7 @@
 
     /* -------------------------------------------------------------------  */
     /* -------------------------------------------------------------------  */
-    var url = 'http://api.sportradar.us/ncaafb-t1/2016/REG/6/WAS/ORE/roster.json?api_key=tvbxck4wb9aasb3png3mbwcn';
+    var url = 'http://api.sportradar.us/ncaafb-t1/2016/REG/2/ISU/IOW/roster.json?api_key=tvbxck4wb9aasb3png3mbwcn';
 
     var homeTeam = [];
     var awayTeam = [];
@@ -751,7 +758,7 @@
 
 
 
-/* -------------------------------------------------------------------  */
+    /* -------------------------------------------------------------------  */
 /* -------------------------------------------------------------------  */
     app.use('/', express.static('./www/'))
 
