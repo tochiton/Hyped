@@ -42,8 +42,8 @@
                 UNIQUE (email)
             );
         `);
-        
-        database.run(` 
+
+        database.run(`
             CREATE TABLE IF NOT EXISTS friends(
                 me INTEGER REFERENCES users (id),
                 friend INTEGER REFERENCES users (id),
@@ -51,7 +51,7 @@
             );
         `);
 
-        database.run(` 
+        database.run(`
             CREATE TABLE IF NOT EXISTS votes(
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name TEXT,
@@ -59,7 +59,7 @@
             );
         `);
 
-        database.run(` 
+        database.run(`
             CREATE TABLE IF NOT EXISTS privateMessage(
                 receiver TEXT,
                 sender INTEGER
@@ -75,7 +75,7 @@
     /************************************************************************/
 
     app.post('/signup.html', function(req, res) {
-   
+
 
             var functionCheck = function () {
                 database.all("SELECT * FROM users WHERE users.email = :email;",
@@ -92,7 +92,7 @@
                                 functionInsert();
                             }
                             else {
-                                res.sendFile(__dirname + '/www/signup.html');
+                                res.sendFile(__dirname + '/www/mvp.html');
                             }
                         }
                     }
@@ -100,7 +100,7 @@
             };
             var functionInsert = function () {
                 database.run(`
-                INSERT INTO users (name, email, password) 
+                INSERT INTO users (name, email, password)
                 VALUES (:name, :email, :password );
             `, {
                     ':name': req.body.username,
@@ -126,12 +126,11 @@
             };
 
             var functionSuccess = function () {
-                res.redirect('/mvp.html');
-                res.end();
+                res.sendFile(__dirname + '/www/mvp.html');
             };
         functionCheck();
-    
-    
+
+
     });
 
     /************************************************************************/
@@ -165,7 +164,7 @@
 
         functionCheck();
     });
- 
+
     /************************************************************************/
     /************************************************************************/
     app.post('/add', function (req, res) {
@@ -177,7 +176,7 @@
         var functionAdd = function () {
             database.run(`
                 INSERT INTO friends (
-                me, 
+                me,
                 friend
                 )VALUES (
                 :me , (SELECT id FROM users WHERE name =:friend )
@@ -212,13 +211,13 @@
         };
         functionAdd();
     });
-    
+
     /************************************************************************/
     /************************************************************************/
     app.get('/mvp.html', function(req, res) {
         //check for session and read info from the database
   //      console.log(req.session);
-    
+
         if(!req.session.user){
             res.redirect('/login.html');
             return;
@@ -324,7 +323,7 @@
         res.set({
             'Content-Type': 'application/json'
         });
-        
+
         res.write('<!DOCTYPE html><html><body>lorem ipsum</body></html>');
         res.end();
     });
@@ -348,7 +347,7 @@
 
         var addFile = function () {
             database.run(`
-                INSERT INTO files (me, filename) 
+                INSERT INTO files (me, filename)
                 VALUES (:me, :filename );
             `, {
                 ':me': req.session.user,
@@ -370,10 +369,10 @@
             res.write(strError);
             res.end();
         };
-        
+
         var temp = '';
         temp = '/www' + destination;
-        
+
         var functionSuccess = function () {
             console.log(destination);
 
@@ -529,12 +528,12 @@
     /************************************************************************/
 
     app.post('/sendtext', function(req, res) {
-        
+
         var sendPrivateText = function () {
             database.run(`
                 INSERT INTO privateMessage (
-                receiver, 
-                sender 
+                receiver,
+                sender
                 )VALUES (
                 :receiver, (SELECT id FROM users WHERE name =:sender )
                 );
