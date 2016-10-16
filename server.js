@@ -53,8 +53,8 @@
 
         database.run(`
             CREATE TABLE IF NOT EXISTS votes(
-                name TEXT,
-                votes INTEGER
+                name VARCHAR(255) PRIMARY KEY,
+                count INTEGER
             );
         `);
 
@@ -74,7 +74,7 @@
     /************************************************************************/
 
 
-    
+
     app.post('/signup.html', function(req, res) {
 
 
@@ -132,6 +132,101 @@
         functionCheck();
 
 
+    });
+    //***********************************************************************
+    //***********************************************************************
+
+    app.post('/votes', function(req,res) {
+    	/*if ( !req.session.user) {
+    		res.redirect('/login.html');
+    		return;
+    	}*/
+
+    	var name = req.body.name;
+    	if ( ! name || ! name.length) {
+    		return;
+    	}
+      console.log(name);
+
+      var functionCheck = function () {
+           database.all("SELECT * FROM votes WHERE votes.name = :name;",
+               {
+                   ':name': req.body.name
+               },
+               function (objectError, objectRows) {
+                   if (objectError) {
+                       //res.redirect('/login.html');
+                       console.log("error");
+                       res.send("error");
+                   } else {
+                       if (objectRows.length === 0) {
+                           //res.redirect('/login.html');
+                            console.log("before func insert");
+                            functionInsert();
+
+                       } else {
+                           console.log("calling func increment");
+                           functionIncrement();
+                           //req.session.user = objectRows[0].id;
+                          // res.sendFile(__dirname + '/www/mvp.html');
+                       }
+                   }
+                   //res.end();
+               }
+           )
+       };
+
+       var functionIncrement = function () {
+           database.run(`
+           UPDATE votes SET count = count + 1 WHERE name=:name;
+       `, {
+               ':name': name,
+           }, function (objectError) {
+               if (objectError !== null) {
+                   functionError(String(objectError));
+                   return;
+               }
+               //console.log(this);
+               //req.session.user = this.lastID;
+               console.log("running func success");
+               functionSuccess();
+           });
+       };
+
+
+       var functionInsert = function () {
+           database.run(`
+           INSERT INTO votes (name, count)
+           VALUES (:name, :count );
+       `, {
+               ':name': name,
+               ':count': 1,
+           }, function (objectError) {
+               if (objectError !== null) {
+                   functionError(String(objectError));
+                   return;
+               }
+               //console.log(this);
+               //req.session.user = this.lastID;
+               console.log("running func success");
+               functionSuccess();
+           });
+       };
+       var functionError = function (strError) {
+           res.status(200);
+           res.set({
+               'Content-Type': 'text/plain'
+           });
+           res.write(strError);
+           res.end();
+       };
+
+       var functionSuccess = function () {
+           //res.sendFile(__dirname + '/www/mvp.html');
+          res.end();
+       };
+
+       functionCheck();
     });
 
     /************************************************************************/
@@ -273,14 +368,14 @@
             // get user info from db, store this user in objectUser
             // call functionFile on success
 
-            database.all("SELECT name, email FROM users",
+            database.all("SELECT name, count FROM votes",
                 {},
                 function (objectError, objectRows) {
                     // check whether there was an error and handle it if necessary
                     // is objrectrows.length !== 1? if so, this is an error that needs to be handled
                //     console.log(objectRows);
                     objectUser = objectRows;
-
+                    console.log(objectRows);
                     functionFile();
                 }
             );
