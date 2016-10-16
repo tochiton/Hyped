@@ -2,12 +2,16 @@
 
 ## Table of Contents
 
-- [What is Hype?](#What-is-Hype?)
-- [Why use it?](#why-use-it)
-- [How to use it](#how-to-use-it)
-- [Get in a Googley Mood](#get-in-a-googley-mood)
-- [Did I Get the Job?](#did-i-get-the-job)
-- [Follow Along with Me](#follow-along-with-me)
+- [What is Hype?](##what-is-hype)
+- [How can I get Hype?](#how-can-i-get-hype)
+- [Inspiration](#inspiration)
+- [What it does](#what-it-does)
+- [How we built it](#how-we-built-it)
+- [Challenges we ran into](#challenges-we-ran-into)
+- [Accomplishments that we're proud of](#accomplishments-that-were-proud-of)
+- [What we learned](#what-we-learned)
+- [What's next for Hyped!](#whats-next-for-hyped!)
+- [Built With](#built-with)
 
 ###What is Hype?
 Well I'm hyped already. Aren't you? Hype is a multiplatform responsive web app that its main goal is to create excitement and engagement toward an audience of sport enthusiasms. Allows them to get involved in small polls and raffles in the live game they are in now. Users will have access to the poll results as soon as they vote represented by material design charts.
