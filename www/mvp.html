@@ -123,7 +123,7 @@
 				</div>
 
 				<div class="container" id="btnsubmit" align="center" style="padding-bottom:5%">
-					<button class="btn btn-primary btn-block" id="submit" type="button">Submit MVP Pick</button>
+					<button class="btn btn-primary btn-block" id="submit" type="button">Submit Your MVP</button>
 
 					<br>
 					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -217,6 +217,8 @@
 			if(homeTeamSelection != undefined && awayTeamSelection != undefined){
 				$.post('/votes', {name: homeTeamSelection.text()});
 				$.post('/votes', {name: awayTeamSelection.text()});
+
+				location.href = "/lineChart.html";
 			}
 
 		});
