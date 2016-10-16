@@ -10,7 +10,7 @@
 - [Challenges we ran into](#challenges-we-ran-into)
 - [Accomplishments that we're proud of](#accomplishments-that-were-proud-of)
 - [What we learned](#what-we-learned)
-- [What's next for Hyped!](#whats-next-for-hyped!)
+- [What's next for Hyped!](#whats-next-for-hyped)
 - [Built With](#built-with)
 
 ###What is Hype?
