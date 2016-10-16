@@ -93,7 +93,7 @@
                                 functionInsert();
                             }
                             else {
-                                res.sendFile(__dirname + '/www/mvp.html');
+                                res.sendFile(__dirname + '/www/login.html');
                             }
                         }
                     }
@@ -127,7 +127,7 @@
             };
 
             var functionSuccess = function () {
-                res.sendFile(__dirname + '/www/mvp.html');
+                res.sendFile(__dirname + '/www/raffle.html');
             };
         functionCheck();
 
@@ -156,7 +156,7 @@
                     // is objrectrows.length !== 1? if so, this is an error that needs to be handled
                //     console.log(objectRows);
                     objectUser = objectRows;
-                    console.log(objectRows);
+                    //console.log(objectRows);
                     res.type('json');
                     res.json(objectUser);
                 }
@@ -355,7 +355,7 @@
 
     /************************************************************************/
     /************************************************************************/
-    app.get('/mvp.html', function(req, res) {
+    /*app.get('/mvp.html', function(req, res) {
         //check for session and read info from the database
   //      console.log(req.session);
 
@@ -393,7 +393,7 @@
 
 
        // functionUser();
-    });
+    });*/
 
     /************************************************************************/
     /************************************************************************/

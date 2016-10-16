@@ -46,22 +46,23 @@
 	</style>
 
 	<body>
-		<div class="container-fluid" >
-		<div class="collapse" id="CollapsingNavbar">
-  			<div class="bg-inverse p-a-1">
-				<ul class="nav">
-			  		<li class="nav-item">
-						<button class="navbar-toggler navbtn" id="mvp" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">MVP Vote</button>
-				    </li>
-					<li class="nav-item">
-						<button class="navbar-toggler navbtn" id="song" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Fav Song</button>
-					</li>
-					<li class="nav-item">
-						<button class="navbar-toggler navbtn" id="raffle" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Raffle</button>
-					</li>
-				</ul>
+		<div style="width:100vw; height:100vh">
+			<div class="collapse" id="CollapsingNavbar">
+				<div class="bg-inverse p-a-1">
+					<ul class="nav">
+						<li class="nav-item">
+							<button class="navbar-toggler navbtn" id="mvp" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">MVP Vote</button>
+						</li>
+						<li class="nav-item">
+							<button class="navbar-toggler navbtn" id="song" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Fav Song</button>
+						</li>
+						<li class="nav-item">
+							<button class="navbar-toggler navbtn" id="raffle" data-toggle="collapse" data-target="#CollapsingNavbar" href="#">Raffle</button>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
+
 
 		<div class="navitemname">
 			<nav class="navbar navbar-light bg-faded nav-inline">
@@ -139,7 +140,56 @@
 
 			document.getElementById("mvp").onclick = function() {
 	location.href = "/mvp.html";
+	$.get('/list', function(data){
+		$('.scrollable-menu').css({"max-height": teamListHeight});
+
+		$('#home-team').append(data.homeTeam);
+		$('#away-team').append(data.awayTeam);
+
+		$('.list-group-item').on('click', function(){
+			if($(this).parent().attr('id') === "home-team"){
+				if(homeTeamSelection != undefined){
+					homeTeamSelection.removeClass('active');
+				}
+				$(this).addClass('active');
+				homeTeamSelection = $(this);
+			}
+			else{
+				if(awayTeamSelection != undefined){
+					awayTeamSelection.removeClass('active');
+				}
+				$(this).addClass('active');
+				awayTeamSelection = $(this);
+			}
+		});
+	});
 };
+/*
+$('#mvp').click(function(){
+	$.get('/list', function(data){
+		$('.scrollable-menu').css({"max-height": teamListHeight});
+
+		$('#home-team').append(data.homeTeam);
+		$('#away-team').append(data.awayTeam);
+
+		$('.list-group-item').on('click', function(){
+			if($(this).parent().attr('id') === "home-team"){
+				if(homeTeamSelection != undefined){
+					homeTeamSelection.removeClass('active');
+				}
+				$(this).addClass('active');
+				homeTeamSelection = $(this);
+			}
+			else{
+				if(awayTeamSelection != undefined){
+					awayTeamSelection.removeClass('active');
+				}
+				$(this).addClass('active');
+				awayTeamSelection = $(this);
+			}
+		});
+	});
+}*/
 		</script>
 	</body>
 </html>
