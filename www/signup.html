@@ -13,11 +13,22 @@
     <style type="text/css">
         body {
             padding-top:20px;
+            color: #FEE123;
+        }
+
+        .btn-primary {
+          color:#154733;
+          background-color: #FEE123;
+        }
+
+        .btn-primary:hover {
+          background-color: #DBAA00;
+          color:#154733;
         }
     </style>
 </head>
 
-<body background="images/green.jpg">
+<body style="background-color:#154733;">
 <script style="text/javascript">
 
 </script>
@@ -25,27 +36,32 @@
 <div class="container">
     <form class="form-horizontal" action="/signup.html" method="post">
         <div class="form-group">
-            <label class="col-sm-2 control-label">username:</label>
+            <label class="col-sm-2 control-label"></label>
             <div class="col-sm-8">
-                <input class="form-control" name="username" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">email:</label>
-            <div class="col-sm-8">
-                <input class="form-control" name="email" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">password:</label>
-            <div class="col-sm-8">
-                <input class="form-control" name="password" type="password">
+              <div>
+                <img src="./img/Hyped!.png" alt="Mountain View" style="max-width:100%; height:auto; width:auto\9;">
+              </div>
+              <h1 style="padding-bottom: 10px">Sign Up</h1>
+              <input class="form-control" placeholder="Enter Username" name="username" type="text" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-8">
-                <button class="btn btn-primary" type="submit">submit</button>
+                <input class="form-control" placeholder="Enter email" name="email" type="email" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">
+                <input class="form-control" placeholder="New password" name="psw" type="password" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">
+                <p class="_58mv" style="padding-left:10px">By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including our Cookie Use.</p>
+                <button class="btn btn-primary" type="signup">Sign Up</button>
             </div>
         </div>
     </form>
