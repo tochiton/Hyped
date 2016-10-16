@@ -172,6 +172,10 @@
 			});
 
 			$('#submit').on('click', function(){
+				if(homeTeamSelection != undefined && awayTeamSelection != undefined){
+					$.post('/votes', {name: homeTeamSelection.text()});
+					$.post('/votes', {name: awayTeamSelection.text()});
+				}
 
 			});
 
